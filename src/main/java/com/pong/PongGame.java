@@ -14,6 +14,11 @@ public class PongGame extends JPanel implements MouseMotionListener {
     private int aiScore;
     private Ball ball;
     // step 1 add any other private variables you may need to play the game.
+    private Paddle paddle;
+    private SlowDown slowDown;
+    private Speedup speedUp;
+    private Wall wall;
+
 
     public PongGame() {
 
@@ -27,8 +32,12 @@ public class PongGame extends JPanel implements MouseMotionListener {
         userMouseY = 0;
         addMouseMotionListener(this);
         ball = new Ball(200, 200, 10, 3, Color.RED, 10);
-
         //create any other objects necessary to play the game.
+        paddle = new Paddle(110, 240,50,9,Color.WHITE);
+        slowDown = new SlowDown(200,300,20,20);
+        speedUp = new Speedup(130,200,50,50);
+        wall = new Wall(320,10,440,10, Color.BLUE);
+
 
     }
 
@@ -55,6 +64,10 @@ public class PongGame extends JPanel implements MouseMotionListener {
         g.drawString("The Score is User:" + playerScore + " vs Ai:" + aiScore, 240, 20);
         ball.draw(g);
         aiPaddle.draw(g);
+        paddle.draw(g);
+        slowDown.draw(g);
+        speedUp.draw(g);
+        wall.draw(g);
         
         //call the "draw" function of any visual component you'd like to show up on the screen.
 
@@ -67,11 +80,14 @@ public class PongGame extends JPanel implements MouseMotionListener {
         //add commands here to make the game play propperly
         
         aiPaddle.moveY(ball.getY());
-
+        ball.moveBall();
+        paddle.moveY(userMouseY);  
         if (aiPaddle.isTouching(ball)) {
            ball.reverseX();
         }
- 
+        if (ball.isTouching(paddle)) {
+            ball.reverseX();
+        }
         pointScored();
 
     }
@@ -83,6 +99,13 @@ public class PongGame extends JPanel implements MouseMotionListener {
     // pixels) and the ai scores
     // if the ball goes off the left edge (0)
     public void pointScored() {
+        if (ball.getX() > 640){
+            playerScore +=1;
+            ball = new Ball(200, 200, 10, 3, Color.RED);
+        } else if (ball.getX() < 0){
+            aiScore +=1;
+            ball = newBall(200,200, 10, 2, Color.RED);
+        }
 
     }
 
