@@ -104,7 +104,7 @@ public class PongGame extends JPanel implements MouseMotionListener {
             ball = new Ball(200, 200,  10, 3, Color.RED);
         } else if (ball.getX() < 0){
             aiScore +=1;
-            ball = newBall(200,200, 10, 2, Color.RED);
+            ball = new Ball(200,200, 10, 2, Color.RED);
         }
 
     }
