@@ -52,6 +52,8 @@ public class PongGame extends JPanel implements MouseMotionListener {
     public int getAiScore() {
         return aiScore;
     }
+    //precoditon none
+    // postcondition decreases balls speed
 
     //precondition: All visual components are initialized, non-null, objects 
     //postcondition: A frame of the game is drawn onto the screen.
@@ -85,12 +87,17 @@ public class PongGame extends JPanel implements MouseMotionListener {
         if (aiPaddle.isTouching(ball)) {
            ball.reverseX();
         }
-        if (ball.isTouching(paddle)) {
+        if (paddle.isTouching(ball)) {
             ball.reverseX();
         }
         pointScored();
-
+        if (slowDown.isTouching(ball)) {
+            ball.slowDown();
+        }
+        if (speedUp.isTouching(ball)) {
+            ball.speedUp();
     }
+}
 
     // precondition: ball is a non-null object that exists in the world
     // postcondition: determines if either ai or the player score needs to be
@@ -101,10 +108,10 @@ public class PongGame extends JPanel implements MouseMotionListener {
     public void pointScored() {
         if (ball.getX() > 640){
             playerScore +=1;
-            ball = new Ball(200, 200,  10, 3, Color.RED);
+            ball = new Ball(200, 200,  10, 3, Color.RED, 10);
         } else if (ball.getX() < 0){
             aiScore +=1;
-            ball = new Ball(200,200, 10, 2, Color.RED);
+            ball = new Ball(200,200, 10, 2, Color.RED, 10);
         }
 
     }

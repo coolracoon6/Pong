@@ -57,13 +57,19 @@ public Ball(int x, int y, int changeX, int changeY, Color color, int size) {
       if(y<bottom) {
         reverseY();  
       }
-      
-      
-
-
-
-
    }
+
+   public void slowDown(){
+      changeX *=0.8;
+      changeY *=0.8;
+    }
+    //precoditon none
+    // postcondition increases balls speed
+   public void speedUp(){
+      changeX *=1.2;
+      changeY *=1.2;
+    }
+
  //precondition: None
  //postcondition: returns the ball's y value
   public int getY() {
